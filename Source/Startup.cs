@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Middlewares.Implementations.Middlewares;
 
 namespace Middlewares.Implementations
 {
@@ -34,6 +35,8 @@ namespace Middlewares.Implementations
 				application.UseSwagger();
 				application.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Middlewares.Implementations v1"));
 			}
+
+			application.UseMiddleware<ErrorHandlerMiddleware>(environment);
 
 			application.UseHttpsRedirection();
 			application.UseRouting();
